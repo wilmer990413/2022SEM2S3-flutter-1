@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:newnoticias/models/articulo.model.dart';
 
@@ -14,8 +15,12 @@ class ArticuloProvider {
         'sortBy': 'publishedAt',
         'apiKey': '31110224f958464c8ee092762eec6a62'
       };
-      var url = Uri.https('https://newsapi.org', 'v2/everything', parametros);
+      var url = Uri.https('newsapi.org', 'v2/everything', parametros);
       var response = await client.get(url);
+      var decodificarResponse =
+          jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+      decodificarResponse['articles']
+          .forEach((item) => articulos.add(ArticuloModel.fromJson(item)));
       return articulos;
     } finally {
       client.close();

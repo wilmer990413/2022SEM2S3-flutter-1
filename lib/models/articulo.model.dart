@@ -15,4 +15,12 @@ class ArticuloModel {
     required this.publishedAt,
     required this.content,
   });
+  factory ArticuloModel.fromJson(Map<String, dynamic> json) => ArticuloModel(
+      author: json["author"] ?? '',
+      title: json["title"] ?? '',
+      description: json["description"] ?? '',
+      url: json["url"] ?? '',
+      urlToImage: json["urlToImage"] ?? '',
+      publishedAt: json["publishedAt"] ?? '',
+      content: json["content"] ?? '');
 }
